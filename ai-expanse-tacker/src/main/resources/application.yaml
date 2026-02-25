@@ -6,20 +6,21 @@ spring:
     name: ai-expense-tracker
 
   datasource:
-    url: ${DB_URL:jdbc:h2:mem:expense-db}
-    driver-class-name: org.h2.Driver
-    username: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:}
+    url: ${DB_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
   mail:
     host: ${MAIL_HOST:smtp-relay.brevo.com}
@@ -45,3 +46,6 @@ openrouter:
     model: ${OPENROUTER_MODEL:mistralai/mistral-7b-instruct}
     temperature: 0.2
     max-tokens: 500
+
+app:
+  allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}

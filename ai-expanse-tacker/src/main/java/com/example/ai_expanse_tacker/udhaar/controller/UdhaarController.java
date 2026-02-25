@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/udhaars")
-@CrossOrigin(origins = "*")
 public class UdhaarController {
 
     private final UdhaarService udhaarService;
