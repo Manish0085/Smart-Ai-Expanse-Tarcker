@@ -2,7 +2,7 @@
 
 A sophisticated, AI-driven personal finance management platform. This application allows users to track expenses, manage debts (Udhaar), and receive intelligent financial insights through a conversational interface powered by **Spring Boot** and **Large Language Models (LLMs)** via **OpenRouter**.
 
-![Project Screenshot](https://via.placeholder.com/1200x600/0f172a/ffffff?text=AI+Expense+Tracker+Dashboard)
+![Project Screenshot](/ss-1.png)
 
 > **Live Demo:** [Insert Your Live Link Here] 🚀
 
@@ -110,7 +110,7 @@ We implement a lightweight RAG pattern:
 
 | Dashboard | Chat Interface |
 | :---: | :---: |
-| ![Dashboard Screenshot](https://via.placeholder.com/400x250?text=Financial+Charts) | ![Chat Screenshot](https://via.placeholder.com/400x250?text=Conversational+UI) |
+| ![Dashboard Screenshot](ss-2.png) | ![Chat Screenshot](ss-3.png) |
 
 ---
 
