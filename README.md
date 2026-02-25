@@ -36,6 +36,54 @@ graph TD
     B -->|Intent + Data| A
 ```
 
+
+---
+
+```md
+## 🧠 Deep System Architecture (Behind the Scenes)
+
+This diagram represents the internal working of the system, showing
+authentication, AI orchestration, chat memory, RAG pipeline, and domain services.
+It reflects how the system is designed to scale into microservices in the future.
+
+```mermaid
+graph TD
+    A[Web / Mobile UI] -->|JWT + REST| B[API Controllers]
+
+    B --> S1[Spring Security]
+    S1 -->|JWT Validation| S2[Auth Filter]
+    S2 -->|USER_ID| B
+
+    B --> C[AI Orchestrator Service]
+
+    C --> M1[Chat Memory Service]
+    M1 --> DB1[(Chat Memory Table)]
+
+    C --> R1[RAG Retriever]
+    R1 --> DB2[(Expense Table)]
+    R1 --> DB3[(Udhaar Table)]
+    R1 --> DB4[(User Table)]
+
+    C --> P1[Prompt Builder]
+    P1 --> AI[OpenRouter / LLM]
+    AI --> C
+
+    C --> J1[JSON Parser & Validator]
+    J1 --> L1[Intent Router]
+
+    L1 --> E1[Expense Service]
+    L1 --> U1[Udhaar Service]
+    L1 --> R2[Report Service]
+
+    E1 --> DB2
+    U1 --> DB3
+
+    L1 --> B
+    B --> A
+
+```
+---
+
 ### **Core Stack**
 -   **Frontend**: React 19, Vite, Tailwind CSS, Framer Motion (Animations), Recharts (Data Viz).
 -   **Backend**: Java 17, Spring Boot 3.3.x, Spring Data JPA.
@@ -114,5 +162,4 @@ We implement a lightweight RAG pattern:
 
 ---
 
-## 📜 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
