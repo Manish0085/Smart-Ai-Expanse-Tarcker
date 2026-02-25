@@ -7,7 +7,6 @@
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8?logo=tailwindcss)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-DB-blue?logo=postgresql)
-![H2](https://img.shields.io/badge/H2-Dev%20DB-lightgrey)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-LLM-purple)
 ![LLM](https://img.shields.io/badge/LLM-Mistral%20%7C%20LLaMA-red)
 ![RAG](https://img.shields.io/badge/RAG-Custom%20Pipeline-yellow)
