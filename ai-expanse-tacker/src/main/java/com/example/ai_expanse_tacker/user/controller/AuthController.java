@@ -18,6 +18,11 @@ public class AuthController {
         this.authService = authService;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "AI Expense Tracker API is running 🚀";
+    }
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, String> request) {
         try {
