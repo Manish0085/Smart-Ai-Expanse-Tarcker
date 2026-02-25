@@ -1,5 +1,18 @@
 # 💰 AI Expense Tracker & Financial Assistant
 
+
+![Java](https://img.shields.io/badge/Java-17-orange?logo=java)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.x-brightgreen?logo=springboot)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-green?logo=springsecurity)
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38bdf8?logo=tailwindcss)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-DB-blue?logo=postgresql)
+![H2](https://img.shields.io/badge/H2-Dev%20DB-lightgrey)
+![OpenRouter](https://img.shields.io/badge/OpenRouter-LLM-purple)
+![LLM](https://img.shields.io/badge/LLM-Mistral%20%7C%20LLaMA-red)
+![RAG](https://img.shields.io/badge/RAG-Custom%20Pipeline-yellow)
+![JWT](https://img.shields.io/badge/Auth-JWT-black)
+
 A sophisticated, AI-driven personal finance management platform. This application allows users to track expenses, manage debts (Udhaar), and receive intelligent financial insights through a conversational interface powered by **Spring Boot** and **Large Language Models (LLMs)** via **OpenRouter**.
 
 ![Project Screenshot](/ss-1.png)
@@ -39,7 +52,6 @@ graph TD
 
 ---
 
-```md
 ## 🧠 Deep System Architecture (Behind the Scenes)
 
 This diagram represents the internal working of the system, showing
