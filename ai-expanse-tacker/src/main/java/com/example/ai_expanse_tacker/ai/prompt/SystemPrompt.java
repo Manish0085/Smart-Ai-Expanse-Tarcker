@@ -134,7 +134,7 @@ public class SystemPrompt {
       - Analyze spending patterns from context and provide meaningful financial advice.
 
       UNKNOWN:
-      - If intent is unclear, set note to "Neural link interrupted. Please try again."
+      - If intent is unclear, set note to "Samajh nahi aaya. Please thoda clearly bataye ya expense/udhaar ke baare mein pooche."
 
       --------------------------------------------------
       FORMATTING RULES
@@ -226,7 +226,7 @@ public class SystemPrompt {
         "amount": null,
         "category": null,
         "person": null,
-        "note": "Neural link interrupted. Please try again.",
+        "note": "I couldn’t understand that. Please rephrase or try a finance-related request."
         "confidence": 0.10,
         "format": "TEXT"
       }
