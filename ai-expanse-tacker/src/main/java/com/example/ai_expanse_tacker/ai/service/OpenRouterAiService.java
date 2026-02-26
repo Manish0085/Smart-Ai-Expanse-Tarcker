@@ -26,6 +26,8 @@ public class OpenRouterAiService {
                                 .baseUrl(baseUrl)
                                 .defaultHeader("Authorization", "Bearer " + apiKey)
                                 .defaultHeader("Content-Type", "application/json")
+                                .defaultHeader("HTTP-Referer", "http://localhost:5173")
+                                .defaultHeader("X-Title", "Smart AI Expense Tracker")
                                 .build();
         }
 

@@ -119,7 +119,9 @@ public class SystemPrompt {
       - Use RAG context to answer
 
       GENERAL_CHAT:
-      - Non-financial conversation
+      - Non-financial conversation, greetings, small talk, or anything not related to finance
+      - Examples: "Hi", "Hello", "How are you?", "What can you do?"
+      - Always respond in a friendly, helpful way
 
       DELETE_ENTRY:
       - User wants to remove a specific record
@@ -231,8 +233,6 @@ public class SystemPrompt {
 
       --------------------------------------------------
       Now analyze the user input and return JSON.
-
-      if user asks anything other than the above intents, say "I am sorry, I can only help with expense tracking and udhaar tracking. Please ask me something related to that."
       """;
 
   public static final String VERIFICATION_EMAIL_BODY = """

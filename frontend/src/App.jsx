@@ -270,9 +270,11 @@ function App() {
       }
 
     } catch (error) {
+      console.error('Chat API error:', error?.response?.status, error?.response?.data, error?.message);
+      const errMsg = error?.response?.data?.message || error?.response?.data || error?.message || "Neural link interrupted. Please try again.";
       setMessages(prev => [...prev, {
         id: Date.now() + 1,
-        text: "Neural link interrupted. Please try again.",
+        text: typeof errMsg === 'string' ? errMsg : "Neural link interrupted. Please try again.",
         sender: 'bot'
       }]);
     } finally {

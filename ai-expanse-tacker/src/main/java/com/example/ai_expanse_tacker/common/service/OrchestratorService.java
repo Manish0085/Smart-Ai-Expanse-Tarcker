@@ -99,6 +99,12 @@ public class OrchestratorService {
     }
 
     private String cleanJsonResponse(String raw) {
+        if (raw == null)
+            return "{}";
+
+        // Strip markdown code fences like ```json ... ``` or ``` ... ```
+        raw = raw.replaceAll("(?s)```(?:json)?\\s*", "").trim();
+
         int start = raw.indexOf('{');
         int end = raw.lastIndexOf('}');
         if (start != -1 && end != -1 && end > start) {
