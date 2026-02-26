@@ -28,18 +28,43 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendVerificationEmail(String email, String link) {
-
+    
         Map<String, Object> body = Map.of(
+                // Recipient
                 "to", List.of(Map.of("email", email)),
+    
+                // Sender (must be VERIFIED in Brevo)
                 "sender", Map.of(
                         "email", fromEmail,
-                        "name", "SecureTracker Pro"),
-                "subject", "SecureTracker Pro - Verify Your Account",
+                        "name", "SecureTracker Pro"
+                ),
+    
+                // Subject
+                "subject", "SecureTracker Pro – Verify Your Account",
+    
+                // ✅ Plain-text fallback (IMPORTANT for Gmail)
+                "textContent",
+                "Verify your SecureTracker Pro account.\n\n" +
+                "Click the link below to activate your account:\n" +
+                link + "\n\n" +
+                "If you did not create this account, you can ignore this email.",
+    
+                // ✅ HTML version
                 "htmlContent",
                 "<h2>Verify your account</h2>" +
-                        "<p>Click the link below to activate your account:</p>" +
-                        "<a href=\"" + link + "\">Verify Email</a>");
-
+                "<p>Click the button below to activate your SecureTracker Pro account:</p>" +
+                "<p>" +
+                "<a href=\"" + link + "\" target=\"_blank\" " +
+                "style=\"display:inline-block;padding:12px 18px;" +
+                "background:#4f46e5;color:white;text-decoration:none;" +
+                "border-radius:6px;font-weight:600;\">" +
+                "Verify Email</a>" +
+                "</p>" +
+                "<p style=\"margin-top:20px;font-size:12px;color:#666;\">" +
+                "If you did not create this account, you can safely ignore this email." +
+                "</p>"
+        );
+    
         try {
             webClient.post()
                     .uri("/smtp/email")
@@ -47,16 +72,16 @@ public class EmailServiceImpl implements EmailService {
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
-
+    
             System.out.println("✅ Verification email sent via Brevo API to " + email);
-
+    
         } catch (Exception e) {
             System.err.println("❌ EMAIL API FAILED: " + e.getMessage());
-
+    
             System.out.println("\n--- MANUAL VERIFICATION LINK ---");
             System.out.println(link);
             System.out.println("--------------------------------\n");
-
+    
             throw new RuntimeException("Email API failed: " + e.getMessage());
         }
     }
