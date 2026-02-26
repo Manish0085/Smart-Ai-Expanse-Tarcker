@@ -36,7 +36,7 @@ public class AuthService {
         AppUser savedUser = userRepository.save(user);
 
         // Verification Link
-        String verificationLink = baseUrl + "/api/auth/verify?id=" + savedUser.getId();
+        String verificationLink = baseUrl + "/auth/verify?id=" + savedUser.getId();
 
         try {
             // Attempt to send real email
