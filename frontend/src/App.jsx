@@ -405,7 +405,7 @@ function App() {
               </div>
               <div className="stat-card">
                 <span className="stat-label">ACTIVE LOANS</span>
-                <h2>{report ? report.udhaars.filter(u => !u.given).length : 0}</h2>
+                <h2>{report ? (report.udhaars ?? []).filter(u => !u.given).length : 0}</h2>
                 <span className="stat-label">Pending attention</span>
               </div>
             </div>
@@ -413,11 +413,11 @@ function App() {
             <div className="content-grid">
               <div className="glass-card main-table">
                 <h3>Recent Transactions</h3>
-                <DataTable data={report ? [...report.expenses, ...report.udhaars].slice(0, 8) : []} />
+                <DataTable data={report ? [...(report.expenses ?? []), ...(report.udhaars ?? [])].slice(0, 8) : []} />
               </div>
               <div className="glass-card analytics-mini">
                 <h3>Insights</h3>
-                <DataChart data={report ? report.expenses : []} type="pie" />
+                <DataChart data={report ? (report.expenses ?? []) : []} type="pie" />
               </div>
             </div>
           </div>
