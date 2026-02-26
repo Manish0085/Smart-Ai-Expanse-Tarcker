@@ -1,48 +1,63 @@
 package com.example.ai_expanse_tacker.user.service;
 
-import com.example.ai_expanse_tacker.ai.prompt.SystemPrompt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final WebClient webClient;
+    private final String fromEmail;
 
-    @Value("${spring.mail.from}")
-    private String fromEmail;
+    public EmailServiceImpl(
+            @Value("${brevo.api-key}") String apiKey,
+            @Value("${mail.from}") String fromEmail) {
+        this.fromEmail = fromEmail;
+        this.webClient = WebClient.builder()
+                .baseUrl("https://api.brevo.com/v3")
+                .defaultHeader("api-key", apiKey)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
 
     @Override
     public void sendVerificationEmail(String email, String link) {
-        // Use SimpleMailMessage for maximum deliverability on unverified domains
-        SimpleMailMessage message = new SimpleMailMessage();
+
+        Map<String, Object> body = Map.of(
+                "to", List.of(Map.of("email", email)),
+                "sender", Map.of(
+                        "email", fromEmail,
+                        "name", "SecureTracker Pro"),
+                "subject", "SecureTracker Pro - Verify Your Account",
+                "htmlContent",
+                "<h2>Verify your account</h2>" +
+                        "<p>Click the link below to activate your account:</p>" +
+                        "<a href=\"" + link + "\">Verify Email</a>");
 
         try {
-            System.out.println(">>> Sending SimpleMailMessage to: " + email);
-            System.out.println(">>> From: " + fromEmail);
+            webClient.post()
+                    .uri("/smtp/email")
+                    .bodyValue(body)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
 
-            String body = SystemPrompt.VERIFICATION_EMAIL_BODY.replace("{{VERIFICATION_LINK}}", link);
+            System.out.println("✅ Verification email sent via Brevo API to " + email);
 
-            message.setFrom(fromEmail);
-            message.setTo(email);
-            message.setSubject("SecureTracker Pro - Verify Your Account");
-            message.setText(body);
-
-            mailSender.send(message);
-            System.out.println("✅ SMTP Process Finished for " + email);
         } catch (Exception e) {
-            System.err.println("❌ DELIVERY FAILED: " + e.getMessage());
+            System.err.println("❌ EMAIL API FAILED: " + e.getMessage());
 
-            // Console box for manual override
-            System.out.println("\n--- MANUAL VERIFICATION LINK (Copy & Paste) ---");
+            System.out.println("\n--- MANUAL VERIFICATION LINK ---");
             System.out.println(link);
-            System.out.println("-----------------------------------------------\n");
+            System.out.println("--------------------------------\n");
 
-            throw new RuntimeException("Email service rejected by destination. Error: " + e.getMessage());
+            throw new RuntimeException("Email API failed: " + e.getMessage());
         }
     }
 }

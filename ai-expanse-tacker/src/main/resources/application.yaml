@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8081}
+  port: ${PORT:8081}   # Render-safe
 
 spring:
   application:
@@ -22,22 +22,13 @@ spring:
           lob:
             non_contextual_creation: true
 
-  mail:
-    host: ${MAIL_HOST:smtp-relay.brevo.com}
-    port: ${MAIL_PORT:587}
-    username: ${MAIL_USER}
-    password: ${MAIL_PASS}
-    from: ${MAIL_FROM}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          ssl:
-            protocols: TLSv1.2
-        debug: false
+# ❌ REMOVE SMTP COMPLETELY (Render blocks it)
+# spring:
+#   mail:
+#     host:
+#     port:
+#     username:
+#     password:
 
 openrouter:
   api:
@@ -46,6 +37,12 @@ openrouter:
     model: ${OPENROUTER_MODEL:mistralai/mistral-7b-instruct}
     temperature: 0.2
     max-tokens: 500
+
+brevo:
+  api-key: ${BREVO_API_KEY}
+
+mail:
+  from: ${MAIL_FROM}
 
 app:
   allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
