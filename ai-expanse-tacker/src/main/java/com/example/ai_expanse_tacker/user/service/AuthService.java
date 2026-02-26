@@ -3,6 +3,7 @@ package com.example.ai_expanse_tacker.user.service;
 import com.example.ai_expanse_tacker.user.entity.AppUser;
 import com.example.ai_expanse_tacker.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -12,10 +13,15 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final EmailService emailService;
+    private final String baseUrl;
 
-    public AuthService(UserRepository userRepository, EmailService emailService) {
+    public AuthService(
+            UserRepository userRepository,
+            EmailService emailService,
+            @Value("${app.base-url}") String baseUrl) {
         this.userRepository = userRepository;
         this.emailService = emailService;
+        this.baseUrl = baseUrl;
     }
 
     public AppUser register(String email, String password) {
@@ -30,7 +36,7 @@ public class AuthService {
         AppUser savedUser = userRepository.save(user);
 
         // Verification Link
-        String verificationLink = "http://localhost:8081/api/auth/verify?id=" + savedUser.getId();
+        String verificationLink = baseUrl + "/api/auth/verify?id=" + savedUser.getId();
 
         try {
             // Attempt to send real email

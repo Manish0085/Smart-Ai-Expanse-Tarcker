@@ -49,3 +49,4 @@ openrouter:
 
 app:
   allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
+  base-url: ${APP_BASE_URL:http://localhost:8081}
