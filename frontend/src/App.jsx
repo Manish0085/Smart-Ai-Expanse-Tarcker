@@ -82,7 +82,7 @@ const DataTable = ({ data }) => {
               <td style={{ padding: '8px' }}>{item.date}</td>
               <td style={{ padding: '8px' }}>{item.note || item.category || item.person}</td>
               <td style={{ padding: '8px', textAlign: 'right', fontWeight: 600, color: item.amount < 0 ? '#ef4444' : '#22c55e' }}>
-                ₹{Math.abs(item.amount).toFixed(2)}
+                ₹{Math.abs(item.amount ?? 0).toFixed(2)}
               </td>
             </tr>
           ))}
@@ -395,12 +395,12 @@ function App() {
             <div className="stats-grid">
               <div className="stat-card">
                 <span className="stat-label">TOTAL SPENDING</span>
-                <h2>₹{report ? report.totalExpense.toFixed(2) : '0.00'}</h2>
+                <h2>₹{report ? (report.totalExpense ?? 0).toFixed(2) : '0.00'}</h2>
                 <span className="stat-delta negative"><ArrowDownLeft size={14} /> Monthly Cap</span>
               </div>
               <div className="stat-card">
                 <span className="stat-label">UDHAAR BALANCE</span>
-                <h2>₹{report ? (report.totalUdhaarGiven - report.totalUdhaarTaken).toFixed(2) : '0.00'}</h2>
+                <h2>₹{report ? ((report.totalUdhaarGiven ?? 0) - (report.totalUdhaarTaken ?? 0)).toFixed(2) : '0.00'}</h2>
                 <span className="stat-delta positive"><ArrowUpRight size={14} /> Reclaiming</span>
               </div>
               <div className="stat-card">
